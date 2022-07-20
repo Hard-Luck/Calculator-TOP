@@ -4,6 +4,9 @@ body {
   justify-content: center;
 }
 
+.calculator-container {
+  background-color: #aaa;
+}
 div {
   height: 10vh;
 }
@@ -24,6 +27,7 @@ div.buttons-container {
   background-color: grey;
   border: solid 0.5px black;
   flex: 1;
+  border-radius: 10%;
 }
 .button.operator {
   color: white;
@@ -36,11 +40,12 @@ div.buttons-container {
   background-color: #073;
   border: solid 0.5px black;
   padding-right: 5vw;
+  border-radius: 10%;
 }
-.button#equals {
+.button.equals {
   background-color: orange;
 }
-.button#clear {
+.button.clear {
   background-color: red;
 }
 .operators {
