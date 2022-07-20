@@ -14,3 +14,5 @@ function evaluateString(string) {
       return (+stringSplit[0] / +stringSplit[2]).toFixed(3);
   }
 }
+
+//add event handlers
