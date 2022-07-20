@@ -35,6 +35,7 @@ div.buttons-container {
   justify-content: center;
   background-color: #073;
   border: solid 0.5px black;
+  padding-right: 5vw;
 }
 .button#equals {
   background-color: orange;
