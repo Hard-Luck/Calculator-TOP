@@ -45,10 +45,18 @@ function clearScreen() {
   screen.innerText = "";
 }
 
+function updateScreen(input) {
+  if (screen.innerText === "0") {
+    screen.innerText = input;
+  } else {
+    screen.innerText += input;
+  }
+}
+
 // Adds number to screen.innerText
 function addNumber(element, val) {
   element.addEventListener("click", (e) => {
-    screen.innerText += e.target.attributes[val].value;
+    updateScreen(e.target.attributes[val].value);
   });
 }
 

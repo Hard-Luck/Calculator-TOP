@@ -48,6 +48,12 @@ div.buttons-container {
 .button.clear {
   background-color: red;
 }
+.button:hover {
+  color: yellow;
+}
+button:active {
+  background-color: black;
+}
 .operators {
   display: flex;
   justify-content: space-around;
