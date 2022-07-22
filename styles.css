@@ -3,9 +3,11 @@ body {
   display: flex;
   justify-content: center;
 }
-
+div {
+  background-color: inherit;
+}
 .calculator-container {
-  background-color: #aaa;
+  background-color: black;
 }
 div {
   height: 10vh;
@@ -27,7 +29,6 @@ div.buttons-container {
   background-color: grey;
   border: solid 0.5px black;
   flex: 1;
-  border-radius: 10%;
 }
 .button.operator {
   color: white;
@@ -40,7 +41,6 @@ div.buttons-container {
   background-color: #073;
   border: solid 0.5px black;
   padding-right: 5vw;
-  border-radius: 10%;
 }
 .button.equals {
   background-color: orange;

@@ -1,99 +1,82 @@
+const numbers = document.querySelectorAll(".digit");
+const operators = document.querySelectorAll(".operator");
+const equals = document.querySelector(".equals");
+const clear = document.querySelector(".clear");
+const screen = document.querySelector(".screen");
+
+const calculator = {
+  storedNumber: 0,
+  secondNumber: 0,
+  operator: "",
+};
+
 // Works
-function calculate(num1, num2, operator) {
-  switch (operator) {
+function calculate() {
+  switch (calculator.operator) {
+    case "":
+      break;
     case "+":
-      return num1 + num2;
+      screen.innerText = +calculator.storedNumber + +calculator.secondNumber;
+      break;
     case "-":
-      return num1 - num2;
+      screen.innerText = +calculator.storedNumber - +calculator.secondNumber;
+      break;
     case "*":
-      return num1 * num2;
+      screen.innerText = +calculator.storedNumber * +calculator.secondNumber;
+      break;
     case "x":
-      return num1 * num2;
+      screen.innerText = +calculator.storedNumber * +calculator.secondNumber;
+      break;
     case "/":
-      return (num1 / num2).toFixed(3);
+      screen.innerText = (
+        +calculator.storedNumber / +calculator.secondNumber
+      ).toFixed(3);
+      break;
   }
-}
-
-// All information of the calculator
-const calculatorDefaults = {
-  onScreen: "",
-  operator: "",
-  savedNumber: 0,
-  numberIsMemory: false,
-};
-
-// Debug - Shows in all states in console
-let calculator = {
-  onScreen: "",
-  operator: "",
-  savedNumber: 0,
-  numberIsMemory: false,
-};
-
-function answer() {
-  if (calculator.savedNumber !== 0 && screen.innerText !== 0) {
-    screen.innerText = calculate(
-      calculator.savedNumber,
-      +screen.innerText,
-      calculator.operator
-    );
-    calculator.numberIsMemory = false;
-  }
-}
-
-// Debug - Works
-function inputNumber(num) {
-  // updates screen with data from button clicks "data-digit" property
-  num.addEventListener("click", (e) => {
-    screen.innerText = calculator.onScreen +=
-      e.target.attributes["data-digit"].value;
-  });
-}
-
-// This is hacked together
-function inputOperator(operator) {
-  // updates screen with data from button clicks "data-digit" property
-  operator.addEventListener("click", (e) => {
-    let operation = e.target.attributes["data-digit"].value;
-    if (calculator.numberIsMemory === false) {
-      calculator.savedNumber = +screen.innerText;
-      screen.innerText = 0;
-      calculator.onScreen = "";
-      calculator.numberIsMemory = true;
-    } else if (calculator.numberIsMemory === true) {
-      calculator.savedNumber = calculate(
-        calculator.savedNumber,
-        +screen.innerText,
-        operation
-      );
-      calculator.onScreen = screen.innerText = calculator.savedNumber;
-      calculator.numberIsMemory = false;
-    }
-
-    calculator.operator = e.target.attributes["data-digit"].value;
-  });
 }
 
 function clearCalculator() {
-  screen.innerText = "0";
-  calculator = calculatorDefaults;
+  calculator.storedNumber = 0;
+  calculator.operator = "";
+  calculator.secondNumber = 0;
 }
 
-// Nodelist of all the digits and event listeners for when clicked - Debug: Works
-const buttons = document.querySelectorAll(".digit");
-buttons.forEach((button) => inputNumber(button));
+function clearScreen() {
+  screen.innerText = "";
+}
 
-//Nodelist of all the operators and event listeners for when clicked
-const operators = document.querySelectorAll(".operator");
-operators.forEach((operator) => inputOperator(operator));
+// Adds number to screen.innerText
+function addNumber(element, val) {
+  element.addEventListener("click", (e) => {
+    screen.innerText += e.target.attributes[val].value;
+  });
+}
 
-const equals = document.querySelector(".equals");
+function operation(op, val) {
+  op.addEventListener("click", (e) => {
+    answer();
+    calculator.operator = e.target.attributes[val].value;
+    calculator.storedNumber = screen.innerText;
+    clearScreen();
+  });
+}
+
+function answer() {
+  if (calculator.operator !== "") {
+    calculator.secondNumber = screen.innerText;
+    calculate();
+    clearCalculator();
+    calculator.storedNumber = screen.innerText;
+  }
+}
+
+numbers.forEach((number) => addNumber(number, "data-digit"));
+operators.forEach((operator) => operation(operator, "data-digit"));
+
+// calculated the result using calculate and then clears the storage and sets new storedNumber
 equals.addEventListener("click", answer);
 
-// Clear the screen - Debug: Works
-let clear = document.querySelector(".clear");
-clear.addEventListener("click", clearCalculator);
-
-// initialize screen text - Debug: Works
-let screen = document.querySelector(".screen");
-screen.innerText = "0";
+clear.addEventListener("click", () => {
+  clearScreen();
+  clearCalculator();
+});
